@@ -24,7 +24,7 @@ nnoremap \gh :YcmCompleter GoToDeclaration<cr>
 nnoremap \gd :YcmCompleter GoToDefinition<cr>
 nnoremap \ga :YcmCompleter GoToDefinitionElseDeclaration<cr>
 nmap     \m  :YcmDiags<cr>
-nmap     \x  :close
+nmap     \x  :close<cr>
 
 " 开启文件类型检测，主要是makefile文件中的Tab"
 filetype plugin indent on
