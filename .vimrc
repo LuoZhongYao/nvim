@@ -71,23 +71,6 @@ inorea #d #define
 inorea #i #include
 inorea /c /*******************************************************************************<cr>*****************************************************************************/<esc>O
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " 加载cscope 数据库
 if has("cscope")
     "cscope 程序路径
@@ -117,31 +100,31 @@ if has("cscope")
     set csverb
 
     " 常规列表
-    nmap ,xt :cs find s <C-R>=expand("<cword>")<CR><CR>        " """"""""""""""""""""""""""""""""""""""
-    nmap ,xd :cs find g <C-R>=expand("<cword>")<CR><CR>        " cscope 命令
-    nmap ,xl :cs find d <C-R>=expand("<cword>")<CR><CR>        " 
-    nmap ,xc :cs find c <C-R>=expand("<cword>")<CR><CR>        " :cs find {querytype} {name} 
-    nmap ,s :cs find t <C-R>=expand("<cword>")<CR><CR>         " see :help cs
-    nmap ,f :cs find f <C-R>=expand("<cfile>")<CR><CR>         " {querytype} :
-    nmap ,i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR        " 0 / s : 查找本C符号>
-    " =模式分栏                                                " 1 / g : 查找定义
-    nmap ,-xt :scs find s <C-R>=expand("<cword>")<CR><CR        " 2 / d : 查找调用>
-    nmap ,-xd :scs find g <C-R>=expand("<cword>")<CR><CR        " 3 / c : 查找被调用>
-    nmap ,-xl :scs find d <C-R>=expand("<cword>")<CR><CR        " 4 / t : 查找字符串>
-    nmap ,-xc :scs find c <C-R>=expand("<cword>")<CR><CR        " 6 / e : egrep                          >
-    nmap ,-s :scs find t <C-R>=expand("<cword>")<CR><CR        " 7 / f : 查找文件>
-    nmap ,-f :scs find f <C-R>=expand("<cfile>")<CR><CR        " 8 / i : 查找包含本文件的文件 >
-    nmap ,-i :scs find i ^<C-R>=expand("<cfile>")<CR>$<        "                                        CR>
-    " || 模式分栏                                              " 
-    nmap ,|xt :vert scs find s <C-R>=expand("<cword>")<C        " """""""""""""""""""""""""""""""""""""" R><CR>
-    nmap ,|d :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap ,|xl :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-    nmap ,|xc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap ,|s :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap ,|f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap ,|i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap \t :cs find s <C-R>=expand("<cword>")<CR><CR>         " """"""""""""""""""""""""""""""""""""""
+    nmap \d :cs find g <C-R>=expand("<cword>")<CR><CR>         " cscope 命令
+    nmap \l :cs find d <C-R>=expand("<cword>")<CR><CR>         " 
+    nmap \c :cs find c <C-R>=expand("<cword>")<CR><CR>         " :cs find {querytype} {name} 
+    nmap \s :cs find t <C-R>=expand("<cword>")<CR><CR>          " see :help cs
+    nmap \f :cs find f <C-R>=expand("<cfile>")<CR><CR>          " {querytype} :
+    nmap \i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>        " 0 / s : 查找本C符号
+    " =模式分栏                                                 " 1 / g : 查找定义
+    nmap \-t :scs find s <C-R>=expand("<cword>")<CR><CR>       " 2 / d : 查找调用
+    nmap \-d :scs find g <C-R>=expand("<cword>")<CR><CR>       " 3 / c : 查找被调用
+    nmap \-l :scs find d <C-R>=expand("<cword>")<CR><CR>       " 4 / t : 查找字符串
+    nmap \-c :scs find c <C-R>=expand("<cword>")<CR><CR>       " 6 / e : egrep                          
+    nmap \-s :scs find t <C-R>=expand("<cword>")<CR><CR>        " 7 / f : 查找文件
+    nmap \-f :scs find f <C-R>=expand("<cfile>")<CR><CR>        " 8 / i : 查找包含本文件的文件 
+    nmap \-i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>      " """"""""""""""""""""""""""""""""""""""
+    " || 模式分栏
+    nmap \|t :vert scs find s <C-R>=expand("<cword>")<CR><CR>
+    nmap \|d  :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap \|l :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+    nmap \|c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap \|s :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap \|f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap \|i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 endif
-map ,ft :!sdcv <c-r><c-w><cr>
+map \ft :!sdcv <c-r><c-w><cr>
     
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
