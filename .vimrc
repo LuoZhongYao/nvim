@@ -12,14 +12,21 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
-" 语法检测
-Bundle 'scrooloose/syntastic'
+Bundle 'kovisoft/slimv'
+
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = 'x'
 let g:ycm_warning_symbol = 'w'
 let g:ycm_max_diagnostics_to_display = 10
+set t_Co=256
+colorscheme darkburn
+
+" slimv
+" let g:slimv_swank_cmd = '!ls'
+let g:slimv_impl = 'ccl'
+let g:slimv_ctags ='ctags --language-force=lisp -R'
 nnoremap \gh :YcmCompleter GoToDeclaration<cr>
 nnoremap \gd :YcmCompleter GoToDefinition<cr>
 nnoremap \ga :YcmCompleter GoToDefinitionElseDeclaration<cr>
@@ -64,28 +71,29 @@ inorea #d #define
 inorea #i #include
 inorea /c /*******************************************************************************<cr>*****************************************************************************/<esc>O
 
-" """"""""""""""""""""""""""""""""""""""
-" cscope 命令
-" 
-" :cs find {querytype} {name}    see :help cs
-" {querytype} :
-" 0 / s : 查找本C符号
-" 1 / g : 查找定义
-" 2 / d : 查找调用
-" 3 / c : 查找被调用
-" 4 / t : 查找字符串
-" 6 / e : egrep
-" 7 / f : 查找文件
-" 8 / i : 查找包含本文件的文件 
-" 
-" 
-" """"""""""""""""""""""""""""""""""""""
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 " 加载cscope 数据库
 if has("cscope")
     "cscope 程序路径
     set nocsverb
-    if filereadable("/usr/local/bin/gtags-cscope")
-        set csprg=/usr/local/bin/gtags-cscope
+    if filereadable("/usr/bin/gtags-cscope")
+        set csprg=/usr/bin/gtags-cscope
         cs add GTAGS
         nmap \mt :!gtags<cr>
         nmap \mu :!global -u<cr>
@@ -109,31 +117,31 @@ if has("cscope")
     set csverb
 
     " 常规列表
-    nmap \t :cs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap \d :cs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap \< :cs find d <C-R>=expand("<cword>")<CR><CR>
-    nmap \c :cs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap \s :cs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap \f :cs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap \i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    " =模式分栏
-    nmap \-t :scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap \-d :scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap \-< :scs find d <C-R>=expand("<cword>")<CR><CR>
-    nmap \-c :scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap \-s :scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap \-f :scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap \-i :scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-    " || 模式分栏
-    nmap \|t :vert scs find s <C-R>=expand("<cword>")<CR><CR>
-    nmap \|d :vert scs find g <C-R>=expand("<cword>")<CR><CR>
-    nmap \|< :vert scs find d <C-R>=expand("<cword>")<CR><CR>
-    nmap \|c :vert scs find c <C-R>=expand("<cword>")<CR><CR>
-    nmap \|s :vert scs find t <C-R>=expand("<cword>")<CR><CR>
-    nmap \|f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
-    nmap \|i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+    nmap ,xt :cs find s <C-R>=expand("<cword>")<CR><CR>        " """"""""""""""""""""""""""""""""""""""
+    nmap ,xd :cs find g <C-R>=expand("<cword>")<CR><CR>        " cscope 命令
+    nmap ,xl :cs find d <C-R>=expand("<cword>")<CR><CR>        " 
+    nmap ,xc :cs find c <C-R>=expand("<cword>")<CR><CR>        " :cs find {querytype} {name} 
+    nmap ,s :cs find t <C-R>=expand("<cword>")<CR><CR>         " see :help cs
+    nmap ,f :cs find f <C-R>=expand("<cfile>")<CR><CR>         " {querytype} :
+    nmap ,i :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR        " 0 / s : 查找本C符号>
+    " =模式分栏                                                " 1 / g : 查找定义
+    nmap ,-xt :scs find s <C-R>=expand("<cword>")<CR><CR        " 2 / d : 查找调用>
+    nmap ,-xd :scs find g <C-R>=expand("<cword>")<CR><CR        " 3 / c : 查找被调用>
+    nmap ,-xl :scs find d <C-R>=expand("<cword>")<CR><CR        " 4 / t : 查找字符串>
+    nmap ,-xc :scs find c <C-R>=expand("<cword>")<CR><CR        " 6 / e : egrep                          >
+    nmap ,-s :scs find t <C-R>=expand("<cword>")<CR><CR        " 7 / f : 查找文件>
+    nmap ,-f :scs find f <C-R>=expand("<cfile>")<CR><CR        " 8 / i : 查找包含本文件的文件 >
+    nmap ,-i :scs find i ^<C-R>=expand("<cfile>")<CR>$<        "                                        CR>
+    " || 模式分栏                                              " 
+    nmap ,|xt :vert scs find s <C-R>=expand("<cword>")<C        " """""""""""""""""""""""""""""""""""""" R><CR>
+    nmap ,|d :vert scs find g <C-R>=expand("<cword>")<CR><CR>
+    nmap ,|xl :vert scs find d <C-R>=expand("<cword>")<CR><CR>
+    nmap ,|xc :vert scs find c <C-R>=expand("<cword>")<CR><CR>
+    nmap ,|s :vert scs find t <C-R>=expand("<cword>")<CR><CR>
+    nmap ,|f :vert scs find f <C-R>=expand("<cfile>")<CR><CR>
+    nmap ,|i :vert scs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
 endif
-map \ft :!sdcv <c-r><c-w><cr>
+map ,ft :!sdcv <c-r><c-w><cr>
     
 " Source a global configuration file if available
 if filereadable("/etc/vim/vimrc.local")
