@@ -227,6 +227,7 @@ if exists("c_gnu")
   syn keyword	cStatement	__asm__
   syn keyword	cOperator	typeof __real__ __imag__ __typeof__ lambda $
 endif
+syn match       cType           "\<[a-zA-Z_$][a-zA-Z_$0-9]*_t\>"
 syn keyword	cType		int long short char void
 syn keyword	cType		signed unsigned float double
 if !exists("c_no_ansi") || exists("c_ansi_typedefs")
