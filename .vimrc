@@ -17,11 +17,12 @@ Bundle 'kovisoft/slimv'
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
-let g:ycm_error_symbol = 'x'
-let g:ycm_warning_symbol = 'w'
+let g:ycm_error_symbol = '=>'
+let g:ycm_warning_symbol = '=>'
 let g:ycm_max_diagnostics_to_display = 10
+let g:ycm_seed_identifiers_with_syntax = 1
 set t_Co=256
-colorscheme darkburn
+colorscheme z "darkburn
 
 " slimv
 " let g:slimv_swank_cmd = '!ls'
