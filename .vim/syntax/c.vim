@@ -14,7 +14,7 @@ set cpo&vim
 let s:ft = matchstr(&ft, '^\([^.]\)\+')
 
 " A bunch of useful C keywords
-syn keyword	cStatement	goto break return continue asm retail
+syn keyword	cStatement	goto break return continue asm throw
 syn keyword	cLabel		case default catch
 syn keyword	cConditional	if else switch try
 syn keyword	cRepeat		while for do foreach $for
