@@ -15,7 +15,7 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kovisoft/slimv'
 
 " YouCompleteMe
-let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/cpp/ycm/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_error_symbol = '=>'
 let g:ycm_warning_symbol = '=>'
@@ -81,7 +81,7 @@ if has("cscope")
     if filereadable("/usr/bin/gtags-cscope")
         set csprg=/usr/bin/gtags-cscope
         cs add GTAGS
-        nmap \mt :!gtags<cr>
+        nmap \mt :!gtags<cr>:cs add GTAGS<cr>
         nmap \mu :!global -u<cr>
     else
         "键绑定
