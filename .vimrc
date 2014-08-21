@@ -25,7 +25,6 @@ let g:ycm_show_diagnostics_ui = 1
 set t_Co=256
 colorscheme z "molokai "z "darkburn
 
-
 " slimv
 " let g:slimv_swank_cmd = '!ls'
 let g:slimv_impl = 'ccl'
@@ -64,15 +63,6 @@ set incsearch
 set ignorecase
 " 关闭预览
 set completeopt=longest,menu
-
-" ThinkPad 专用
-imap <F1> <ESC>
-map <F1> <ESC>
-
-" C程序专用
-inorea #d #define
-inorea #i #include
-inorea /c /*******************************************************************************<cr>*****************************************************************************/<esc>O
 
 " 加载cscope 数据库
 if has("cscope")

@@ -37,8 +37,3 @@ hi DiffText      term=reverse cterm=bold ctermbg=102 gui=bold,italic guibg=#4C47
 hi VertSplit     term=reverse cterm=bold ctermfg=244 ctermbg=232 gui=bold guifg=#808080 guibg=#080808
 hi Comment       term=bold ctermfg=59 guifg=#7E8E91
 hi StatusLine    term=bold ctermfg=59 guifg=#7E8E91
-
-
-
-
-" vim: sw=2
