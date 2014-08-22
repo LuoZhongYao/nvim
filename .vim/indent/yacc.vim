@@ -11,7 +11,7 @@ endif
 let b:did_indent = 1
 
 setlocal indentexpr=GetYaccIndent()
-setlocal indentkeys=!^F,o,O,0:,0|,0;
+setlocal indentkeys=!^F,o,O,0\|,0;,0<:>
 setlocal nosmartindent
 
 " Only define the function once.
@@ -25,14 +25,12 @@ function GetYaccIndent()
   endif
 
   let ind = indent(v:lnum - 1)
-  let line = getline(v:lnum - 1)
+  let line = getline(v:lnum)
 
   if line == ''
     let ind = 0
-  elseif line =~ '^\s*[|:].*$'
+  elseif line =~ '^\s*[|:;].*'
     let ind = 4 "ind + matchend(line, '^\w\+\s*')
-  elseif line =~ '^\s*;\s*$'
-    let ind = 0
   else
     let ind = indent(v:lnum)
   endif
