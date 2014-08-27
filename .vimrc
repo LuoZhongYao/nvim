@@ -26,7 +26,7 @@ set t_Co=256
 colorscheme z "molokai "z "darkburn
 
 " slimv
-" let g:slimv_swank_cmd = '!ls'
+let g:slimv_swank_cmd = '!sh -c  sbcl --load ~/.vim/slime/start-swank.lisp &" 
 let g:slimv_impl = 'ccl'
 let g:slimv_ctags ='ctags --language-force=lisp -R'
 nnoremap \gh :YcmCompleter GoToDeclaration<cr>
