@@ -41,3 +41,4 @@ hi VertSplit     cterm=bold ctermfg=244 ctermbg=232
 hi Comment       ctermfg=59
 hi Constant      ctermfg=1
 hi Statement     cterm=bold ctermfg=12
+hi Type          ctermfg=141
