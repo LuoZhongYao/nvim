@@ -8,11 +8,12 @@ endif
 " filetype plugin on
 " 不兼容VI
 set nocompatible
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kovisoft/slimv'
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'gmarik/Vundle.vim'
+Plugin 'Valloric/YouCompleteMe'
+Plugin 'kovisoft/slimv'
+call vundle#end()
 
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
@@ -23,7 +24,7 @@ let g:ycm_max_diagnostics_to_display = 10
 let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_show_diagnostics_ui = 1
 set t_Co=256
-colorscheme z
+colorscheme z "molokai "z "darkburn
 
 " slimv
 "  new conlose run ccl -l ~/.vim/bundle/slimv/slime/start-swank.lisp
@@ -61,7 +62,7 @@ set tenc=utf-8
 " 实时搜索"
 set incsearch
 " 搜索忽略大小写
-set ignorecase
+set ignorecase smartcase
 " 关闭预览
 set completeopt=longest,menu
 
@@ -69,8 +70,8 @@ set completeopt=longest,menu
 if has("cscope")
     "cscope 程序路径
     set nocsverb
-    if filereadable("/usr/bin/gtags-cscope")
-        set csprg=/usr/bin/gtags-cscope
+    if filereadable("/usr/local/bin/gtags-cscope")
+        set csprg=/usr/local/bin/gtags-cscope
         cs add GTAGS
         nmap \mt :!gtags<cr>:cs add GTAGS<cr>
         nmap \mu :!global -u<cr>
