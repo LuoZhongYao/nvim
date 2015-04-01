@@ -18,7 +18,6 @@ syn keyword	cStatement	goto break return continue asm throw
 syn keyword	cLabel		case default catch
 syn keyword	cConditional	if else switch try
 syn keyword	cRepeat		while for do foreach $for
-
 syn keyword	cTodo		contained TODO FIXME XXX
 
 " It's easy to accidentally add a space after a backslash that was intended
@@ -222,7 +221,8 @@ endif
 syn match	cCommentError	display "\*/"
 syn match	cCommentStartError display "/\*"me=e-1 contained
 
-syn keyword	cOperator	sizeof
+syn keyword	cOperator	sizeof 
+
 if exists("c_gnu")
   syn keyword	cStatement	__asm__
   syn keyword	cOperator	typeof __real__ __imag__ __typeof__ lambda $
@@ -405,7 +405,32 @@ else
   exec "syn sync ccomment cComment minlines=" . b:c_minlines
 endif
 
+" Highlight all function
+" syn match cFunction "\<[a-zA-Z_][a-zAZ_0-9_]*\>[^()]*)("me=e-2
+" syn match cFunction "\<[a-zA-Z_][a-zA-Z0-9_]*\>\s*("me=e-1
+
+" Highlight all math operator
+syn match cMathOperator     display "[-+\*%=]"
+syn match cPointerOperator  display "->\|\.\|\:\:"
+syn match cLogicalOperotor  display "[!<>]=\="
+syn match cLogicalOperotor  display "=="
+syn match cBinaryOperator   display "\(&\||\|\^\<<\|>>\)=\="
+syn match cBinaryOperator   display "\~"
+syn match cBinaryOperatorError   display "\~="
+syn match cLogicalOperotor  display "&&\|||"
+syn match cLogicalOperotorError display "\(&&\|||\)="
+syn match cpriorityperator  display "(\|)\|\[\\]\|{\|}"
+
+
 " Define the default highlighting.
+hi def link cMathOperator           Operator
+hi def link cPointerOperator        Operator
+hi def link cLogicalOperotor        Operator
+hi def link cLogicalOperotorError   Operator
+hi def link cpriorityperator        Operator
+hi def link cBinaryOperator         Operator
+hi def link cBinaryOperatorError    Operator
+" hi def link cFunction               Function
 " Only used when an item doesn't have highlighting yet
 hi def link cFormat		cSpecial
 hi def link cCppString		cString

@@ -38,7 +38,8 @@ hi DiffText      cterm=bold ctermbg=102
 hi VertSplit     cterm=bold ctermfg=244 ctermbg=232
 
 " syntax highlighting
-hi Comment       ctermfg=59
-hi Constant      ctermfg=1
-hi Statement     cterm=bold ctermfg=12
-hi Type          ctermfg=141
+hi Comment      ctermfg=59
+hi Constant     ctermfg=1
+hi Statement    cterm=bold ctermfg=141
+hi Type         ctermfg=12
+hi Operator     ctermfg=128
