@@ -14,8 +14,7 @@ augroup templates
         else
             let l = line("$")
         endif
-        silent! execute '1,' . l . 's/\[:BASE:\]_\[:EXPAND:\]/\U' .
-                    \ expand("<afile>:r") . '_' . expand("<afile>:e") . '/g'
+        silent! execute '1,' . l . 's/\[:BASE:\]_\[:EXPAND:\]/\=substitute(expand("%:t"),"\\(.*\\)\\.\\(.*\\)","\\U\\1_\\2","")'
         silent! execute "1," . l . "g/Modified: /s/Modified: .*/Modified: " . strftime("%Y %b %d")
     endfunc
 
