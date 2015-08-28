@@ -7,6 +7,7 @@ call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'kovisoft/slimv'
+Plugin 'godlygeek/tabular'
 call vundle#end()
 
 " YouCompleteMe
