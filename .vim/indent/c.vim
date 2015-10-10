@@ -11,6 +11,6 @@ let b:did_indent = 1
 
 " C indenting is built-in, thus this is very simple
 setlocal cindent
-setlocal cino +=:0,l1,j1
+setlocal cino +=:0,l1,j1,b1,(0
 
 let b:undo_indent = "setl cin<"
