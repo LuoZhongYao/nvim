@@ -8,6 +8,8 @@ if filereadable($HOME . "/.vim/ycm.vim")
     source ~/.vim/ycm.vim
 endif
 
+set textwidth=80
+
 " 开启文件类型检测，主要是makefile文件中的Tab"
 set t_Co=256
 colorscheme z "molokai darkburn
@@ -48,7 +50,11 @@ if filereadable($HOME . "/.vim/template.vim")
     source  ~/.vim/template.vim
 endif
 
-" 加载cscope 数据库
+" 加载DoxygenToolkit 
+if filereadable($HOME . "/.vim/doxygentoolkit.vim")
+    source ~/.vim/doxygentoolkit.vim
+endif
+
 if has("cscope") && filereadable($HOME . "/.vim/complate.vim")
     source ~/.vim/complate.vim
 endif

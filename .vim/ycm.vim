@@ -6,9 +6,12 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'gmarik/Vundle.vim'
 Plugin 'Valloric/YouCompleteMe'
-Plugin 'kovisoft/slimv'
+"Plugin 'kovisoft/slimv'
 Plugin 'godlygeek/tabular'
+Plugin 'rust-lang/rust.vim'
+Plugin 'mrtazz/DoxygenToolkit.vim'
 call vundle#end()
+
 
 " YouCompleteMe
 let g:ycm_global_ycm_extra_conf = '~/.vim/bundle/YouCompleteMe/third_party/ycmd/cpp/ycm/.ycm_extra_conf.py'
