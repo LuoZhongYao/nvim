@@ -8,7 +8,7 @@ if filereadable($HOME . "/.vim/ycm.vim")
     source ~/.vim/ycm.vim
 endif
 
-set textwidth=80
+" set textwidth=80
 
 " 开启文件类型检测，主要是makefile文件中的Tab"
 set t_Co=256
