@@ -12,7 +12,8 @@ endif
 
 " 开启文件类型检测，主要是makefile文件中的Tab"
 set t_Co=256
-colorscheme z "molokai darkburn
+"set termguicolors
+colorscheme z "molokai" darkburn
 
 filetype plugin indent on
 set showmatch

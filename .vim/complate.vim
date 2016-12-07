@@ -17,7 +17,7 @@ else
         cs add $CSCOPE_DB
     endif
 endif
-set cscopequickfix=s-,c-,d-,i-,t-,e-
+set cscopequickfix=s-,c-,d-,i-,t-,e-,g-
 "优先搜索cscope库
 set csto=0
 "CTRL_] 使用 :cstag而不是tag
