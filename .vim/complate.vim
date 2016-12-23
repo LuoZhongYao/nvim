@@ -2,7 +2,17 @@
 set nocsverb
 if filereadable("/usr/local/bin/gtags-cscope")
     set csprg=/usr/local/bin/gtags-cscope
-    cs add GTAGS
+    let i = 0
+    let path =  ""
+    while i < 20
+        let i += 1
+        if filereadable(path . "GTAGS")
+            exec "cs add " path . "GTAGS"
+            break
+        endif
+        let path = "../" . path
+    endwhile
+    "cs add GTAGS
     nmap \mt :!gtags<cr>:cs add GTAGS<cr>
     nmap \mu :!global -u<cr>
 else
