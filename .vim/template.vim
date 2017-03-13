@@ -15,7 +15,7 @@ augroup templates
             let l = line("$")
         endif
         silent! execute '1,' . l . 's/\[:BASE:\]_\[:EXPAND:\]/\=substitute(expand("%:t"),"\\(.*\\)\\.\\(.*\\)","\\U\\1_\\2","")'
-        silent! execute "1," . l . "g/Modified: /s/Modified: .*/Modified: " . strftime("%Y %b %d")
+        silent! execute '1,' . l . 'g/Modified: /s/\(Modified: \).*/\1' . strftime('%Y\/%m\/%d')
     endfunc
 
     "fun LastMod()

@@ -17,6 +17,7 @@ colorscheme z "molokai" darkburn
 
 filetype plugin indent on
 set showmatch
+set showcmd
 set softtabstop=4
 set smarttab
 " 空格代替Tab"
