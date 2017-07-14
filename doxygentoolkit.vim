@@ -6,4 +6,4 @@ let g:DoxygenToolkit_paramTag_pre="@param "
 let g:DoxygenToolkit_returnTag="@return   "
 let g:DoxygenToolkit_authorName="Luo ZhongYao,LuoZhongYao@gmail.com"
 let g:doxgen_enhanced_color = 1
-nmap ,d :Dox<cr>
+nmap <Leader>d :Dox<cr>
