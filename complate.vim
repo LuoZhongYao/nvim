@@ -3,14 +3,15 @@ set nocsverb
 if filereadable("/usr/local/bin/gtags-cscope")
     set csprg=/usr/local/bin/gtags-cscope
     let i = 0
-    let path =  ""
+    let project_dir =  ""
     while i < 20
         let i += 1
-        if filereadable(path . "GTAGS")
-            exec "cs add " path . "GTAGS"
+        if filereadable(project_dir . "GTAGS")
+            exec "cs add " project_dir . "GTAGS"
+            let &path = &path . project_dir . "**"
             break
         endif
-        let path = "../" . path
+        let project_dir = "../" . project_dir
     endwhile
     "cs add GTAGS
     nmap \mt :!gtags<cr>:cs add GTAGS<cr>

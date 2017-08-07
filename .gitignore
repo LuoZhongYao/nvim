@@ -18,3 +18,5 @@
 *.app
 .vim/bundle
 .netrwhist
+plugged
+doc

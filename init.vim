@@ -13,6 +13,11 @@ Plug 'sebastianmarkow/deoplete-rust'
 Plug 'w0rp/ale'
 Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-easy-align'
+Plug 'rust-lang/rust.vim'
+
+"Plug 'vim-airline/vim-airline'
+"Plug 'vim-airline/fonts'
+"Plug 'vim-airline/vim-airline-themes'
 "Plug 'godlygeek/tabular'
 "Plug 'flazz/vim-colorschemes'
 "Plug 'chxuan/change-colorscheme'
@@ -30,16 +35,20 @@ let g:ale_linters = {
             \ 'cpp' : ['clangcheck'],
             \}
 
+"let g:airline_powerline_fonts=1
+"let g:airline#extensions#tabline#enabled = 1
+
 " set t_Co=256
 set termguicolors
+set background=dark
 colorscheme gruvbox
 map <F12> :NextColorScheme<CR>
 
 " nvim 终端模拟器快进键
 if has('nvim')
     " 不用<ESC> 键是因为要在终端里面调用vi/vim
-    tnoremap <C-w>q <C-\><C-n>
-    tnoremap <C-w><C-q> <C-\><C-n>
+    tnoremap <ESC>  <C-\><C-n>
+    tnoremap <c-q>  <ESC>
     tnoremap <C-w>h <C-\><C-N><C-w>h
     tnoremap <C-w>j <C-\><C-N><C-w>j
     tnoremap <C-w>k <C-\><C-N><C-w>k
@@ -48,6 +57,8 @@ if has('nvim')
     tnoremap <C-w><C-j> <C-\><C-N><C-w>j
     tnoremap <C-w><C-k> <C-\><C-N><C-w>k
     tnoremap <C-w><C-l> <C-\><C-N><C-w>l
+    nmap <Leader>v :vsplit term://fish<cr>
+    nmap <Leader>w :split term://fish<cr>
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 endif
@@ -55,6 +66,7 @@ endif
 " easy-align 配置
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
+nmap <Leader>h :nohlsearch<cr>
 
 " 开启文件类型检测，主要是makefile文件中的Tab"
 filetype plugin indent on
