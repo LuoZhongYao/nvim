@@ -5,6 +5,14 @@
 #ifndef __[:BASE:]_[:EXPAND:]__
 #define __[:BASE:]_[:EXPAND:]__
 
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
 
-#endif
+
+#ifdef __cplusplus
+}
+#endif /* __cplusplus */
+
+#endif /* __[:BASE:]_[:EXPAND:]__*/

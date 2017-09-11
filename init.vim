@@ -15,12 +15,7 @@ Plug 'morhetz/gruvbox'
 Plug 'junegunn/vim-easy-align'
 Plug 'rust-lang/rust.vim'
 
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/fonts'
-"Plug 'vim-airline/vim-airline-themes'
 "Plug 'godlygeek/tabular'
-"Plug 'flazz/vim-colorschemes'
-"Plug 'chxuan/change-colorscheme'
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
@@ -35,10 +30,6 @@ let g:ale_linters = {
             \ 'cpp' : ['clangcheck'],
             \}
 
-"let g:airline_powerline_fonts=1
-"let g:airline#extensions#tabline#enabled = 1
-
-" set t_Co=256
 set termguicolors
 set background=dark
 colorscheme gruvbox
@@ -57,8 +48,8 @@ if has('nvim')
     tnoremap <C-w><C-j> <C-\><C-N><C-w>j
     tnoremap <C-w><C-k> <C-\><C-N><C-w>k
     tnoremap <C-w><C-l> <C-\><C-N><C-w>l
-    nmap <Leader>v :vsplit term://fish<cr>
-    nmap <Leader>w :split term://fish<cr>
+    execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
+    execute "nmap <Leader>w :split term://" . &shell"<cr>"
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 endif
@@ -67,12 +58,10 @@ endif
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>h :nohlsearch<cr>
-
 " 开启文件类型检测，主要是makefile文件中的Tab"
 filetype plugin indent on
 set laststatus=0
 set showmatch
-set showcmd
 set softtabstop=4
 set smarttab
 " 空格代替Tab"
@@ -92,8 +81,6 @@ set fencs=utf-8,gb18030,gdk,gdk2312
 set fenc=utf-8
 set tenc=utf-8
 " set noexpandtab"
-" 实时搜索"
-set incsearch
 " 搜索忽略大小写
 set ignorecase smartcase
 " 关闭预览
@@ -104,16 +91,6 @@ set diffexpr=""
 
 set mouse=a
 
-" 加载模板
-if filereadable($HOME . "/.config/nvim/template.vim")
-    source  ~/.config/nvim/template.vim
-endif
-
-" 加载DoxygenToolkit 
-if filereadable($HOME . "/.config/nvim/doxygentoolkit.vim")
-    source ~/.config/nvim/doxygentoolkit.vim
-endif
-
-if has("cscope") && filereadable($HOME . "/.config/nvim/complate.vim")
-    source ~/.config/nvim/complate.vim
-endif
+call gtags#load()
+source ~/.config/nvim/doxygentoolkit.vim
+source ~/.config/nvim/template.vim
