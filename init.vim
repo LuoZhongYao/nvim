@@ -56,8 +56,8 @@ endif
 
 " easy-align 配置
 vmap <Leader>a <Plug>(EasyAlign)
-nmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>h :nohlsearch<cr>
+nmap <Leader><space> :%s/\s\+$//g<cr>
 " 开启文件类型检测，主要是makefile文件中的Tab"
 filetype plugin indent on
 set laststatus=0
