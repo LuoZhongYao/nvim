@@ -50,6 +50,7 @@ if has('nvim')
     tnoremap <C-w><C-l> <C-\><C-N><C-w>l
     execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
     execute "nmap <Leader>w :split term://" . &shell"<cr>"
+    execute "nmap <Leader>n :tabnew term://" . &shell"<cr>"
     autocmd BufWinEnter,WinEnter term://* startinsert
     autocmd BufLeave term://* stopinsert
 endif
