@@ -5,35 +5,40 @@ if has("syntax")
 endif
 
 call plug#begin('~/.config/nvim/plugged')
-Plug 'mrtazz/DoxygenToolkit.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang'
-Plug 'zchee/deoplete-jedi'
-Plug 'sebastianmarkow/deoplete-rust'
-Plug 'w0rp/ale'
-Plug 'morhetz/gruvbox'
-Plug 'junegunn/vim-easy-align'
-Plug 'rust-lang/rust.vim'
+"Plug 'mrtazz/DoxygenToolkit.vim'
+"Plug 'zchee/deoplete-jedi'
+"Plug 'w0rp/ale'
+"Plug 'junegunn/vim-easy-align'
+"Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
+"Plug 'rust-lang/rust.vim', {'for': 'rust'}
+"Plug 'udalov/kotlin-vim'
 
-"Plug 'godlygeek/tabular'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'zchee/deoplete-clang', { 'for': 'cmake'}
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
+
+Plug 'morhetz/gruvbox'
+Plug 'godlygeek/tabular'
 call plug#end()
 
+let g:LanguageClient_diagnosticsList='Location'
+let g:LanguageClient_serverCommands = {
+    \ 'c': ['/usr/bin/clangd'],
+    \ 'cpp': ['/usr/bin/clangd'],
+    \ }
+
+set completefunc=LanguageClient#complete
+set formatexpr=LanguageClient_textDocument_rangeFormatting()
+
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
-let g:deoplete#sources#clang#clang_header = '/usr/include'
+"let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
+"let g:deoplete#sources#clang#clang_header = '/usr/include'
 
-let g:ale_sign_error = 'x'
-let g:ale_sign_warning = '-'
-let g:ale_c_build_dir_names = [getcwd(), 'build', 'bin']
-let g:ale_linters = {
-            \ 'c' : ['clangcheck'],
-            \ 'cpp' : ['clangcheck'],
-            \}
-
-set termguicolors
+if (has("termguicolors"))
+    set termguicolors
+endif
 set background=dark
 colorscheme gruvbox
-map <F12> :NextColorScheme<CR>
 
 " nvim 终端模拟器快进键
 if has('nvim')
@@ -51,14 +56,15 @@ if has('nvim')
     execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
     execute "nmap <Leader>w :split term://" . &shell"<cr>"
     execute "nmap <Leader>n :tabnew term://" . &shell"<cr>"
-    autocmd BufWinEnter,WinEnter term://* startinsert
-    autocmd BufLeave term://* stopinsert
+    " autocmd BufWinEnter,WinEnter term://* startinsert
+    " autocmd BufLeave term://* stopinsert
 endif
 
 " easy-align 配置
 vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>h :nohlsearch<cr>
 nmap <Leader><space> :%s/\s\+$//g<cr>
+nmap <Leader>2 : call LanguageClient#textDocument_rename()<cr>
 " 开启文件类型检测，主要是makefile文件中的Tab"
 filetype plugin indent on
 set laststatus=0
