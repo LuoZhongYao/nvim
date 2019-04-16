@@ -4,7 +4,7 @@ if has("syntax")
   syntax on
 endif
 
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin(stdpath('config') . '/plugged')
 "Plug 'mrtazz/DoxygenToolkit.vim'
 "Plug 'zchee/deoplete-jedi'
 "Plug 'w0rp/ale'
@@ -99,5 +99,4 @@ set diffexpr=""
 set mouse=a
 
 call gtags#load()
-source ~/.config/nvim/doxygentoolkit.vim
-source ~/.config/nvim/template.vim
+exec 'source ' . stdpath('config') . '/template.vim'

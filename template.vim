@@ -3,10 +3,10 @@ augroup templates
     " read  in template files
     " autocmd BufNewFile *.* silent! execute '0r $HOME/.vim/templates/skeleton.'. expand("<afile>:e")
     autocmd BufNewFile *.h  call s:cmodule()
-    autocmd BufNewFile *.sh silent! execute '0r $HOME/.config/nvim/templates/template.' . expand("<afile>:e")
+    autocmd BufNewFile *.sh silent! execute '0r ' . stdpath('config') . '/templates/template.' . expand("<afile>:e")
 
     fun s:cmodule()
-        silent! execute '0r $HOME/.config/nvim/templates/template.' . expand("<afile>:e")
+        silent! execute '0r ' stdpath('config') . '/templates/template.' . expand("<afile>:e")
         if line("$") > 20
             let l = 20
         else
