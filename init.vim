@@ -17,6 +17,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'zchee/deoplete-clang', { 'for': 'cmake'}
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
 
+Plug 'yianwillis/vimcdoc'
 Plug 'morhetz/gruvbox'
 Plug 'godlygeek/tabular'
 call plug#end()
@@ -31,7 +32,7 @@ set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-8/lib/libclang.so.1'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so.8'
 "let g:deoplete#sources#clang#clang_header = '/usr/include'
 
 if (has("termguicolors"))
@@ -61,7 +62,6 @@ if has('nvim')
 endif
 
 " easy-align 配置
-vmap <Leader>a <Plug>(EasyAlign)
 nmap <Leader>h :nohlsearch<cr>
 nmap <Leader><space> :%s/\s\+$//g<cr>
 nmap <Leader>2 : call LanguageClient#textDocument_rename()<cr>
@@ -72,7 +72,7 @@ set showmatch
 set softtabstop=4
 set smarttab
 " 空格代替Tab"
-set expandtab
+" set expandtab
 " 自动缩进"
 set cindent
 " Tab宽度"
