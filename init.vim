@@ -23,6 +23,7 @@ Plug 'godlygeek/tabular'
 call plug#end()
 
 let g:LanguageClient_diagnosticsList='Location'
+"let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
 let g:LanguageClient_serverCommands = {
     \ 'c': ['/usr/bin/clangd'],
     \ 'cpp': ['/usr/bin/clangd'],
@@ -95,6 +96,8 @@ set completeopt=longest,menu
 " vimdiff 忽略空格
 set diffopt+=iwhite
 set diffexpr=""
+
+set colorcolumn=81
 
 set mouse=a
 
