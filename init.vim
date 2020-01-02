@@ -19,28 +19,30 @@ Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.s
 
 Plug 'yianwillis/vimcdoc'
 Plug 'morhetz/gruvbox'
+Plug 'lifepillar/vim-solarized8'
 Plug 'godlygeek/tabular'
 call plug#end()
 
+let g:c_syntax_for_h=1
 let g:LanguageClient_diagnosticsList='Location'
 "let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
 let g:LanguageClient_serverCommands = {
-    \ 'c': ['/usr/bin/clangd'],
-    \ 'cpp': ['/usr/bin/clangd'],
+    \ 'c': ['/usr/bin/clangd', '--header-insertion=never'],
+    \ 'cpp': ['/usr/bin/clangd', '--header-insertion=never'],
     \ }
 
 set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so.8'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so.9'
 "let g:deoplete#sources#clang#clang_header = '/usr/include'
 
 if (has("termguicolors"))
     set termguicolors
 endif
-set background=dark
-colorscheme gruvbox
+set background=light
+colorscheme solarized8
 
 " nvim 终端模拟器快进键
 if has('nvim')
@@ -100,6 +102,8 @@ set diffexpr=""
 set colorcolumn=81
 
 set mouse=a
+set secure
+set exrc
 
 call gtags#load()
 exec 'source ' . stdpath('config') . '/template.vim'
