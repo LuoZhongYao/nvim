@@ -35,7 +35,7 @@ set completefunc=LanguageClient#complete
 set formatexpr=LanguageClient_textDocument_rangeFormatting()
 
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so.9'
+let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
 "let g:deoplete#sources#clang#clang_header = '/usr/include'
 
 if (has("termguicolors"))
