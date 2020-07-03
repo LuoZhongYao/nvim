@@ -1,42 +1,17 @@
 runtime! debian.vim
-" 开启语法高亮"
-if has("syntax")
-  syntax on
-endif
 
 call plug#begin(stdpath('config') . '/plugged')
-"Plug 'mrtazz/DoxygenToolkit.vim'
-"Plug 'zchee/deoplete-jedi'
-"Plug 'w0rp/ale'
-"Plug 'junegunn/vim-easy-align'
-"Plug 'sebastianmarkow/deoplete-rust', {'for': 'rust'}
-"Plug 'rust-lang/rust.vim', {'for': 'rust'}
-"Plug 'udalov/kotlin-vim'
-
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang', { 'for': 'cmake'}
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh'}
-
-Plug 'yianwillis/vimcdoc'
-Plug 'morhetz/gruvbox'
+Plug 'Shougo/deoplete-lsp'
 Plug 'lifepillar/vim-solarized8'
 Plug 'godlygeek/tabular'
+Plug 'neovim/nvim-lsp'
 call plug#end()
 
-let g:c_syntax_for_h=1
-let g:LanguageClient_diagnosticsList='Location'
-"let g:LanguageClient_serverStderr = '/tmp/clangd.stderr'
-let g:LanguageClient_serverCommands = {
-    \ 'c': ['/usr/bin/clangd', '--header-insertion=never'],
-    \ 'cpp': ['/usr/bin/clangd', '--header-insertion=never'],
-    \ }
-
-set completefunc=LanguageClient#complete
-set formatexpr=LanguageClient_textDocument_rangeFormatting()
-
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#sources#clang#libclang_path = '/usr/lib64/libclang.so'
-"let g:deoplete#sources#clang#clang_header = '/usr/include'
+" lua require'nvim_lsp'.bashls.setup{}
+lua require'nvim_lsp'.cmake.setup{}
+lua require'nvim_lsp'.clangd.setup{}
 
 if (has("termguicolors"))
     set termguicolors
@@ -44,40 +19,29 @@ endif
 set background=light
 colorscheme solarized8
 
-" nvim 终端模拟器快进键
-if has('nvim')
-    " 不用<ESC> 键是因为要在终端里面调用vi/vim
-    tnoremap <ESC>  <C-\><C-n>
-    tnoremap <c-q>  <ESC>
-    tnoremap <C-w>h <C-\><C-N><C-w>h
-    tnoremap <C-w>j <C-\><C-N><C-w>j
-    tnoremap <C-w>k <C-\><C-N><C-w>k
-    tnoremap <C-w>l <C-\><C-N><C-w>l
-    tnoremap <C-w><C-h> <C-\><C-N><C-w>h
-    tnoremap <C-w><C-j> <C-\><C-N><C-w>j
-    tnoremap <C-w><C-k> <C-\><C-N><C-w>k
-    tnoremap <C-w><C-l> <C-\><C-N><C-w>l
-    execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
-    execute "nmap <Leader>w :split term://" . &shell"<cr>"
-    execute "nmap <Leader>n :tabnew term://" . &shell"<cr>"
-    " autocmd BufWinEnter,WinEnter term://* startinsert
-    " autocmd BufLeave term://* stopinsert
-endif
+execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
+execute "nmap <Leader>w :split term://" . &shell"<cr>"
+execute "nmap <Leader>n :tabnew term://" . &shell"<cr>"
 
-" easy-align 配置
 nmap <Leader>h :nohlsearch<cr>
 nmap <Leader><space> :%s/\s\+$//g<cr>
-nmap <Leader>2 : call LanguageClient#textDocument_rename()<cr>
-" 开启文件类型检测，主要是makefile文件中的Tab"
-filetype plugin indent on
+nnoremap <silent> gd			<cmd>lua vim.lsp.buf.declaration()<CR>
+nnoremap <silent> gD    		<cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap <silent> K     		<cmd>lua vim.lsp.buf.hover()<CR>
+nnoremap <silent> gi    		<cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap <silent> <c-k> 		<cmd>lua vim.lsp.buf.signature_help()<CR>
+nnoremap <silent> 1gD   		<cmd>lua vim.lsp.buf.type_definition()<CR>
+nnoremap <silent> gr    		<cmd>lua vim.lsp.buf.references()<CR>
+nnoremap <silent> g0    		<cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap <silent> gW    		<cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <silent> <Leader>f		<cmd>lua vim.lsp.buf.code_action()()<CR>
+
 set laststatus=0
 set showmatch
 set softtabstop=4
 set smarttab
-" 空格代替Tab"
 " set expandtab
-" 自动缩进"
-set cindent
+" 空格代替Tab"
 " Tab宽度"
 set tabstop=4
 " 匹配括号"
@@ -100,10 +64,7 @@ set diffopt+=iwhite
 set diffexpr=""
 
 set colorcolumn=81
-
 set mouse=a
-set secure
-set exrc
 
 call gtags#load()
 exec 'source ' . stdpath('config') . '/template.vim'
