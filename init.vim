@@ -57,16 +57,16 @@ local on_attach = function(client, bufnr)
 
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
-    require('lspconfig').util.nvim_multiline_command [[
-      " :hi link LspReferenceRead Error " cterm=bold ctermbg=red guibg=LightYellow
-      " :hi link LspReferenceText Error " cterm=bold ctermbg=red guibg=LightYellow
-      " :hi link LspReferenceWrite Error " cterm=bold ctermbg=red guibg=LightYellow
+    vim.api.nvim_exec ([[
+      hi link LspReferenceRead Error
+      hi link LspReferenceText Error
+      hi link LspReferenceWrite Error
       augroup lsp_document_highlight
         autocmd!
         autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
-    ]]
+    ]], false)
   end
 end
 
@@ -79,7 +79,6 @@ end
 EOF
 
 set laststatus=0
-set showmatch
 set smarttab
 " set expandtab
 " 空格代替Tab"
