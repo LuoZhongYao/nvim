@@ -3,7 +3,6 @@ runtime! debian.vim
 call plug#begin(stdpath('config') . '/plugged')
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
-Plug 'lifepillar/vim-solarized8'
 Plug 'godlygeek/tabular'
 Plug 'neovim/nvim-lspconfig'
 call plug#end()
@@ -13,7 +12,7 @@ if (has("termguicolors"))
     set termguicolors
 endif
 set background=light
-colorscheme solarized8
+colorscheme selenized
 
 execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
 execute "nmap <Leader>w :split term://" . &shell"<cr>"
@@ -47,6 +46,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
