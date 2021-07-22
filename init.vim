@@ -1,6 +1,5 @@
-runtime! debian.vim
-
 call plug#begin(stdpath('config') . '/plugged')
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
 Plug 'godlygeek/tabular'
@@ -13,10 +12,6 @@ if (has("termguicolors"))
 endif
 set background=light
 colorscheme selenized
-
-execute "nmap <Leader>v :vsplit term://" . &shell"<cr>"
-execute "nmap <Leader>w :split term://" . &shell"<cr>"
-execute "nmap <Leader>n :tabnew term://" . &shell"<cr>"
 
 nmap <Leader>h :nohlsearch<cr>
 nmap <Leader><space> :%s/\s\+$//g<cr>
@@ -72,11 +67,24 @@ end
 
 -- Use a loop to conveniently both setup defined servers
 -- and map buffer local keybindings when the language server attaches
-local servers = { "clangd", "cmake", "rls" }
+local servers = { "clangd", "cmake", "rust_analyzer", "pyls"}
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+	nvim_lsp[lsp].setup { on_attach = on_attach }
 end
 EOF
+
+lua <<EOF
+require'nvim-treesitter.configs'.setup {
+  -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "c", "rust" },  -- list of language that will be disabled
+  },
+}
+EOF
+
+set completeopt=menuone,noinsert,noselect
 
 set laststatus=0
 set smarttab
