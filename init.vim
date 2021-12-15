@@ -4,6 +4,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'Shougo/deoplete-lsp'
 Plug 'godlygeek/tabular'
 Plug 'neovim/nvim-lspconfig'
+Plug 'github/copilot.vim'
 call plug#end()
 
 let g:deoplete#enable_at_startup = 1
@@ -15,6 +16,8 @@ colorscheme selenized
 
 nmap <Leader>h :nohlsearch<cr>
 nmap <Leader><space> :%s/\s\+$//g<cr>
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
