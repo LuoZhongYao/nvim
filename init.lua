@@ -1,26 +1,17 @@
-call plug#begin(stdpath('config') . '/plugged')
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'Shougo/deoplete-lsp'
-Plug 'godlygeek/tabular'
-Plug 'neovim/nvim-lspconfig'
-Plug 'github/copilot.vim'
-call plug#end()
+local use = require('packer').use
+require('packer').startup(function()
+  use 'neovim/nvim-lspconfig' -- Collection of configurations for built-in LSP client
+  use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
+  use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
+  use {'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'}
+  use 'github/copilot.vim'
+end)
 
-let g:deoplete#enable_at_startup = 1
-if (has("termguicolors"))
-    set termguicolors
-endif
-set background=light
-colorscheme selenized
+-- Add additional capabilities supported by nvim-cmp
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-nmap <Leader>h :nohlsearch<cr>
-nmap <Leader><space> :%s/\s\+$//g<cr>
-imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
-
-lua << EOF
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -68,15 +59,48 @@ local on_attach = function(client, bufnr)
   end
 end
 
--- Use a loop to conveniently both setup defined servers
--- and map buffer local keybindings when the language server attaches
-local servers = { "clangd", "cmake", "rust_analyzer", "pylsp"}
+-- Enable some language servers with the additional completion capabilities offered by nvim-cmp
+local servers = { 'clangd', 'rust_analyzer', 'cmake', 'pylsp' }
 for _, lsp in ipairs(servers) do
-	nvim_lsp[lsp].setup { on_attach = on_attach }
+	lspconfig[lsp].setup {
+		on_attach = on_attach,
+		capabilities = capabilities,
+	}
 end
-EOF
 
-lua <<EOF
+-- nvim-cmp setup
+local cmp = require 'cmp'
+cmp.setup {
+  mapping = cmp.mapping.preset.insert({
+    ['<C-d>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<CR>'] = cmp.mapping.confirm {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = true,
+    },
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end,
+    ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end,
+  }),
+  sources = {
+    { name = 'nvim_lsp', keyword_length = 3 },
+  },
+}
+
+
+
 require'nvim-treesitter.configs'.setup {
   -- ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ignore_install = { "javascript" }, -- List of parsers to ignore installing
@@ -85,38 +109,19 @@ require'nvim-treesitter.configs'.setup {
     -- disable = { "c", "rust" },  -- list of language that will be disabled
   },
 }
-EOF
 
-set completeopt=menuone,noinsert,noselect
+vim.opt.mouse = 'a'
+vim.opt.background = 'light'
+vim.opt.termguicolors = true
+vim.opt.colorcolumn = '81'
+-- vim.opt.colorscheme = 'selenized'
+vim.api.nvim_command [[colorscheme selenized]]
+vim.api.nvim_buf_set_option(0, "tagfunc", "v:lua.vim.lsp.tagfunc")
+vim.api.nvim_buf_set_option(0, 'formatexpr', 'v:lua.vim.lsp.formatexpr()')
 
-set laststatus=0
-set smarttab
-" set expandtab
-" 空格代替Tab"
-" 匹配括号"
-set showmatch
-" 缩进格数"
-set softtabstop=8
-set shiftwidth=8
-" Tab宽度"
-set tabstop=8
-" 编码设置"
-set enc=utf-8
-set fencs=utf-8,gb18030,gdk,gdk2312
-set fenc=utf-8
-set tenc=utf-8
-" set noexpandtab"
-" 搜索忽略大小写
-set ignorecase smartcase
-" 关闭预览
-set completeopt=longest,menu
-" vimdiff 忽略空格
-set diffopt+=iwhite
-set diffexpr=""
+-- copilot
+vim.g.copilot_no_tab_map = 'v:true'
+vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', {script = true, silent = true, expr = true })
 
-set colorcolumn=81
-set mouse=a
-set exrc
-
-call gtags#load()
-exec 'source ' . stdpath('config') . '/template.vim'
+-- gtags
+vim.cmd [[call gtags#load()]]

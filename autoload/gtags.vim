@@ -33,7 +33,7 @@ function! gtags#load()
     set csto=0
     "CTRL_] 使用 :cstag而不是tag
     set cst
-	call s:gtags_add()
+    call s:gtags_add()
 endfunction
 
 function! AddTag(job_id, data, event) dict
