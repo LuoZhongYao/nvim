@@ -1,3 +1,8 @@
+if exists('g:autoloaded_templates')
+  finish
+endif
+let g:autoloaded_templates = 1
+
 augroup templates
     au!
     " read  in template files
